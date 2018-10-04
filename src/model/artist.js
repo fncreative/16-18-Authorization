@@ -14,6 +14,12 @@ const artistSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  album: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'album',
+    },
+  ],
 });
 
 module.exports = mongoose.model('artist', artistSchema);

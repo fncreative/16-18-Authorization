@@ -12,6 +12,10 @@ module.exports = (error, request, response, next) => { //eslint-disable-line
   }
   const errorMessage = error.message.toLocaleLowerCase();
 
+  if (errorMessage.includes('unauthorized')) {
+    logger.log(logger.ERROR, 'unauthorized');
+    return response.sendStatus(401);
+  }
   if (errorMessage.includes('objectid failed')) {
     logger.log(logger.ERROR, 'Responding with a 400 code.');
     logger.log(logger.ERROR, 'could not validate object id');
@@ -21,6 +25,11 @@ module.exports = (error, request, response, next) => { //eslint-disable-line
     logger.log(logger.ERROR, 'Responding with a 400 code.');
     logger.log(logger.ERROR, 'could not validate id');
     return response.sendStatus(400);
+  }
+  if (errorMessage.includes('not found')) {
+    logger.log(logger.ERROR, 'Responding with a 404 code.');
+    logger.log(logger.ERROR, 'Bad route.');
+    return response.sendStatus(404);
   }
   if (errorMessage.includes('duplicate key')) {
     logger.log(logger.ERROR, 'Responding with a 409 code.');
