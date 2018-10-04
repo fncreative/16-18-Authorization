@@ -27,7 +27,7 @@ const albumSchema = mongoose.Schema({
 });
 
 function albumPreHook(done) {
-  return Album.findById(this.album)
+  return Artist.findById(this.artist)
     .then((albumFound) => {
       if (!albumFound) {
         throw new HttpError(404, 'album not found');
@@ -38,3 +38,23 @@ function albumPreHook(done) {
     .then(() => done())
     .catch(error => done(error));
 }
+
+const albumPostHook = (document, done) => {
+  return Artist.findById(document.artist)
+    .then((albumFound) => {
+      if (!albumFound) {
+        throw new HttpError(500, 'album not found');
+      }
+      albumFound.artist = albumFound.artist.filter((album) => {
+        return album._id.toString() !== document._id.toString();
+      });
+      return albumFound.save();
+    })
+    .then(() => done())
+    .catch(error => done(error));
+};
+
+albumSchema.pre('save', albumPreHook);
+albumSchema.post('remove', albumPostHook);
+
+module.exports = mongoose.model('album', albumSchema);
