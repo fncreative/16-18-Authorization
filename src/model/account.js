@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jsonWebToken = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const HttpError = require('http-errors');
 
 const accountSchema = mongoose.Schema({
   username: {
@@ -28,6 +29,16 @@ const accountSchema = mongoose.Schema({
 });
 
 const TOKEN_SEED_LENGTH = 128;
+function pVerifyPassword(plainTextPassword) {
+  return bcrypt.compare(plainTextPassword, this.passwordHash)
+    .then((compareResult) => {
+      if (!compareResult) {
+        throw new HttpError(401, 'Unauthorized');
+      }
+      return this;
+    })
+    .catch(console.error);
+}
 
 function pCreateToken() {
   this.tokenSeed = crypto.randomBytes(TOKEN_SEED_LENGTH).toString('hex');
@@ -42,6 +53,8 @@ function pCreateToken() {
     });
 }
 accountSchema.methods.pCreateToken = pCreateToken;
+accountSchema.methods.pVerifyPassword = pVerifyPassword;
+
 const Account = module.exports = mongoose.model('account', accountSchema);
 
 const HASH_ROUNDS = 8;

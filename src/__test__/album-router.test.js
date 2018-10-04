@@ -5,7 +5,6 @@ const superagent = require('superagent');
 const server = require('../lib/server');
 const artistMock = require('./lib/artist-mock');
 
-//! Vinicio - setting up the testing port, by HAND
 const API_URL = `http://localhost:${process.env.PORT}/api/artist`;
 
 describe('/api/artist', () => {
