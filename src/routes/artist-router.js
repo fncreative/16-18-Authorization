@@ -11,7 +11,7 @@ const logger = require('../lib/logger');
 const jsonParser = bodyParser.json();
 const router = module.exports = new express.Router();
 
-router.post('api/artists', jsonParser, (request, response, next) => {
+router.post('api/artist', jsonParser, (request, response, next) => {
   return new Artist(request.body).save()
     .then((savedArtist) => {
       logger.log(logger.INFO, 'Responding with a 200 status code');
@@ -20,11 +20,11 @@ router.post('api/artists', jsonParser, (request, response, next) => {
     .catch(next);
 });
 
-router.get('/api/artists/:id', (request, response, next) => {
+router.get('/api/artist/:id', (request, response, next) => {
   return Artist.findById(request.params.id)
     .then((artist) => {
       if (artist) {
-        logger.log(logger.INFO, 'Responding with a 200 status code and a category');
+        logger.log(logger.INFO, 'Responding with a 200 status code and a Artist');
         return response.json(artist);
       }
       logger.log(logger.INFO, 'Responding with a 404 status code. Artist not found');

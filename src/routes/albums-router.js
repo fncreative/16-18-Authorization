@@ -35,4 +35,4 @@ router.put('/api/albums/:id', jsonParser, (request, response, next) => {
       return response.json(updatedAlbum);
     })
     .catch(error => next(error));
-})
+});

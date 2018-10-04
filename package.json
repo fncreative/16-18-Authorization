@@ -6,12 +6,13 @@
   "directories": {
     "lib": "lib"
   },
-  "engines" : {
+  "engines": {
     "node": "10.8.0"
   },
   "scripts": {
-    "test": "eslint . && jest --coverage",
+    "test": "eslint . && jest --coverage --forceExit --runInBand",
     "lint": "eslint .",
+    "dbDevOn": "mkdir -p ./testdb && mongod --dbpath ./testdb",
     "dbOn": "mkdir -p ./db && mongod --dbpath ./db",
     "dbOff": "killall mongod",
     "start": "node src/index.js"

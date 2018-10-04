@@ -21,6 +21,7 @@ router.post('/api/signup', jsonParser, (request, response, next) => {
     })
     .then((token) => {
       logger.log(logger.INFO, 'Responding with a 200 status code and a token');
+      return response.json({ token });
     })
     .catch(next);
 });

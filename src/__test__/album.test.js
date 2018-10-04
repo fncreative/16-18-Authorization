@@ -11,7 +11,7 @@ describe('/api/albums', () => {
   afterAll(server.stop);
   beforeEach(AlbumMock.pCleanAlbumMocks);
 
-  test('should respond with 200 status and an updated card', () => {
+  test('should respond with 200 status and an updated album', () => {
     let savedMock;
     return AlbumMock.pCreateAlbumMocks()
       .then((mock) => {
@@ -23,7 +23,7 @@ describe('/api/albums', () => {
       })
       .then((response) => {
         expect(response.status).toEqual(200);
-        expect(response.body.track).toEqual(savedMock.blogPost.track);
+        expect(response.body.track).toEqual(savedMock.album.track);
         expect(response.body.title).toEqual('I am a new and updated title');
       });
   });

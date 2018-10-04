@@ -5,9 +5,9 @@ const Artist = require('../../model/artist');
 
 const artistMock = module.exports = {};
 
-artistMock.pCreateArtistMock = () => {
+artistMock.pCreateArtistMocks = () => {
   return new Artist({
-    name: faker.lorem.words(10),
+    name: faker.lorem.words(2),
   }).save();
 };
 

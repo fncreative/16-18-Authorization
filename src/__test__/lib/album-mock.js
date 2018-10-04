@@ -7,16 +7,16 @@ const Album = require('../../model/album');
 
 const albumMock = module.exports = {};
 
-albumMock.pCreateAlbumMock = () => {
+albumMock.pCreateAlbumMocks = () => {
   const resultMock = {};
 
-  return artistMock.pCreateArtistMock()
+  return artistMock.pCreateArtistMocks()
     .then((createdArtistMock) => {
       resultMock.category = createdArtistMock;
 
       return new Album({
-        title: faker.lorem.words(5),
-        content: faker.lorem.words(5),
+        title: faker.lorem.words(2),
+        track: faker.lorem.words(1),
         category: createdArtistMock._id,
       }).save();
     })
@@ -29,6 +29,6 @@ albumMock.pCreateAlbumMock = () => {
 albumMock.pCleanAlbumMocks = () => {
   return Promise.all([
     Album.remove({}),
-    artistMock.pCleanArtistMock(),
+    artistMock.pCleanArtistMocks(),
   ]);
 };
