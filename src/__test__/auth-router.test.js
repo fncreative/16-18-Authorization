@@ -53,7 +53,7 @@ describe('AUTH ROUTER', () => {
         expect(response.status).toEqual(400);
       });
   });
-  test('test for 400 if the password is incorrect or does not exist in the system', () => {
+  test('should return a 400 error if the password is incorrect or does not exist in the system', () => {
     return accountMock.pCreateMock()
       .then((mock) => {
         return superagent.get(`${API_URL}/api/login`)
