@@ -1,6 +1,7 @@
 db/
 .idea/
 .log
+testdb/
 
 # Created by https://www.gitignore.io/api/vim,node,macos,linux,windows,webstorm,visualstudiocode
 
