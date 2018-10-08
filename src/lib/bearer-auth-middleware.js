@@ -6,13 +6,13 @@ const Account = require('../model/account');
 
 /**
  *
- * @param callbackStyleFunction
- * @param args - anyarguments we need to pass to callBackStyleFunction
+ * @param curryFunction
+ * @param args - any arguments we need to pass to callBackStyleFunction
  * @returns
  */
-const promisify = callbackStyleFunction => (...args) => {
+const promisify = curryFunction => (...args) => {
   return new Promise((resolve, reject) => {
-    callbackStyleFunction(...args, (error, data) => {
+    curryFunction(...args, (error, data) => {
       if (error) {
         return reject(error);
       }

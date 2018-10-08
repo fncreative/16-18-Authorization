@@ -1,6 +1,5 @@
 'use strict';
 
-const faker = require('faker');
 const superagent = require('superagent');
 const server = require('../lib/server');
 const accountMock = require('./lib/account-mock');
@@ -17,10 +16,8 @@ describe('/api/picture', () => {
       .then((mock) => {
         return superagent.post(API_URL)
           .set('Authorization', `Bearer ${mock.token}`)
-          .send({
-            title: faker.lorem.words(3),
-            url: faker.internet.url(),
-          });
+          .field('title', 'The picture says it all')
+          .attach('picture', `${__dirname}/assets/oneup.png`);
       })
       .then((response) => {
         expect(response.status).toEqual(200);
