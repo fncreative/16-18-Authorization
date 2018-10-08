@@ -9,6 +9,7 @@ const errorMiddleware = require('./error-middleware');
 const artistRoutes = require('../routes/artist-router');
 const albumRoutes = require('../routes/albums-router');
 const authRoutes = require('../routes/auth-router');
+const pictureRoutes = require('../routes/picture-router');
 
 const app = express();
 app.use(loggerMiddleware);
@@ -16,6 +17,7 @@ app.use(loggerMiddleware);
 app.use(artistRoutes);
 app.use(albumRoutes);
 app.use(authRoutes);
+app.use(pictureRoutes);
 
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning a 404 from catch-all/default route (the route was not found');
